@@ -6,6 +6,7 @@ import dns from 'dns';
 import connectCloudinary from './config/cloudinary.js';
 import userRouter from './routes/userRoutes.js';
 import productRoute from './routes/productRoutes.js';
+import reservationRoute from './routes/reseravationRoutes.js';
 
 dns.setServers(["1.1.1.1","8.8.8.8"])
 
@@ -26,6 +27,7 @@ app.use(express.json())
 
 app.use('/api/user', userRouter)
 app.use('/api/product', productRoute)
+app.use('/api/reservation', reservationRoute)
 
 app.get('/',(req,res) =>{
     res.send("API wroking")
