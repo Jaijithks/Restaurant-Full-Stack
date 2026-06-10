@@ -1,33 +1,47 @@
-import productModel from "../models/productModels.js"
-import multer from "multer"
-import {v2 as cloudinary} from 'cloudinary'
+import productModel from '../models/productModels.js'
+import { v2 as cloudinary } from 'cloudinary'
 
+const uploadBufferToCloudinary = (buffer) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { resource_type: 'image' },
+      (error, result) => {
+        if (error) return reject(error)
+        resolve(result)
+      }
+    )
+    stream.end(buffer)
+  })
+}
 
+const addProduct = async (req, res) => {
+  try {
+    const { name, price, description, category } = req.body
+    let imageurl = 'https://via.placeholder.com/150'
+    const image = req.file
 
-const addProduct = async (req , res) => {
-try {
-    const {name,price,description,category} = req.body
-    let imageurl =""
-    const image = req.file;
-    if(image){
-        let result = await cloudinary.uploader.upload(image.path, {resource_type : 'image'})
-        imageurl = result.secure_url
-    }else{
-        imageurl = "https://via.placeholder.com/150"
+    if (image) {
+      const result = await uploadBufferToCloudinary(image.buffer)
+      imageurl = result.secure_url
     }
+
     const productDetails = {
-        name , price: Number(price), category , description, image: imageurl, date : Date.now()
+      name,
+      price: Number(price),
+      category,
+      description,
+      image: imageurl,
+      date: Date.now(),
     }
-    console.log(productDetails);
 
     const product = new productModel(productDetails)
     await product.save()
 
-    res.json({success: true, message: "product added successfully"})
-} catch (error) {
-    console.log(error);
-    res.json({success: true , message : "upload failed"})
-}
+    res.status(201).json({ success: true, message: 'product added successfully' })
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ success: false, message: error.message || 'upload failed' })
+  }
 }
 
 const listProduct = async (req , res ) => {
