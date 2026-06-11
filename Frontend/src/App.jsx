@@ -5,10 +5,9 @@ import Menu from './components/Menu'
 import MenuContextProvider from './Context/MenuContext'
 import ReservationForm from './components/ReservationForm'
 import Footer from './components/Footer'
-import {ToastContainer} from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 
-export const backendURL = "http://localhost:4000"
-
+export const backendURL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:4000'
 
 function App() {
   return (

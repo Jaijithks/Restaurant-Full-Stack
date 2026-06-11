@@ -3,24 +3,26 @@ import { toast } from "react-toastify"
 import { backendURL } from "../App"
 import axios from "axios";
 
-function Login({setToken}){
-const [email , setEmail]= useState('')
-const [password , setPassword]=  useState('')
+function Login({ setToken }) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-const onSubmitHandler = async (e) =>{
+  const onSubmitHandler = async (e) => {
     try {
-        e.preventDefault();
+      e.preventDefault()
 
-        const response = await axios.post( backendURL +'/api/user/admin', {email , password})
-        if(response.data.success){
-            console.log(response)
-            setToken(response.data.token)
-            console.log(response.data.message)
-        }
+      const response = await axios.post(`${backendURL}/api/user/admin`, { email, password })
+      if (response.data.success) {
+        setToken(response.data.token)
+        toast.success(response.data.message || 'Login successful')
+      } else {
+        toast.error(response.data.message || 'Login failed')
+      }
     } catch (error) {
-        console.log(error);
+      console.error(error)
+      toast.error(error.response?.data?.message || error.message || 'Login error')
     }
-}
+  }
     return  (
         <div>
             <div className="flex justify-center items-center min-h-screen bg-gray-300">
