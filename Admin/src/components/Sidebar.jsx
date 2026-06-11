@@ -12,7 +12,12 @@ const Sidebar = ({setToken}) => {
             <Link to={'/add'} className='flex items-center gap-3 px-6 py-3 border-b-2 border-gray-200 text-gray-600 hover:bg-amber-500 hover:text-white hover-cursor'>Add menu</Link>
             <Link to={'/list'} className='flex items-center gap-3 px-6 py-3 border-b-2 border-gray-200 text-gray-600 hover:bg-amber-500 hover:text-white hover-cursor'>Menu list</Link>
              <Link to={'/table'} className='flex items-center gap-3 px-6 py-3 border-b-2 border-gray-200 text-gray-600 hover:bg-amber-500 hover:text-white cursor-pointer'>Reservations</Link>
-             <button className='px-6 py-3 border-b-2 border-black hover:bg-red-500 hover:text-white hover-cursor'>LogOut</button>
+             <button
+               onClick={() => setToken('')}
+               className='px-6 py-3 border-b-2 border-black hover:bg-red-500 hover:text-white hover-cursor'
+             >
+               LogOut
+             </button>
         </nav>
       </div>
     </div>

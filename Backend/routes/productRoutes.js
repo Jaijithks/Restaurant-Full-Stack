@@ -5,9 +5,9 @@ import AdminAuth from '../middleware/AdminAuth.js';
 
 const productRoute = express.Router();
 
-productRoute.post('/add', Upload.single("image"),AdminAuth,addProduct)
-productRoute.get('/list',listProduct)
-productRoute.post('/remove',removeProduct,AdminAuth)
+productRoute.post('/add', Upload.single('image'), AdminAuth, addProduct)
+productRoute.get('/list', listProduct)
+productRoute.post('/remove', AdminAuth, removeProduct)
 productRoute.get('/single', singleProduct)
 
 export default productRoute;
