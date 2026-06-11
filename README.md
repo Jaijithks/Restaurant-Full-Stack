@@ -7,6 +7,9 @@ A full-stack restaurant management and food ordering platform built using the ME
 **Frontend:**
 [Restaurant Full Stack Application](https://restaurant-full-stack-w1bu.vercel.app/?utm_source=chatgpt.com)
 
+Back(Admin)
+https://restaurant-full-stack-zfqb.vercel.app/
+
 ## 📌 Features
 
 ### Customer Side
